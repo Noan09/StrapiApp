@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { actions } from "@/actions";
-import { FormError } from "./form-error";
+
 import {
   CardTitle,
   CardDescription,
@@ -17,7 +17,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useActionState } from "react";
-
+import { type FormState } from "@/validations/auth";
+import { FormError } from "./form-error";
 
 const styles = {
   container: "w-full max-w-md",
@@ -109,25 +110,4 @@ export function SignupForm() {
       </form>
     </div>
   );
-}
-
-export async function loginUserService (userData: object) {
-  const url = `${STRAPI_BASE_URL}/api/auth/local`
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(userData)
-    })
-
-    const data = await response.json()
-    console.log(data)
-    return data
-  } catch (error) {
-    console.error('Error login user:', error)
-    throw error
-  }
 }
